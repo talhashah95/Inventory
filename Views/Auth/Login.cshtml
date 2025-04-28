@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+@model Invent.Models.Account
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<script>
+
+       function ValidateInput() {
+        if (document.getElementById('txtUserName').value == "" || document.getElementById('txtPassword').value == "") {
+            alert('Input needed')
+            return false;
+        }
+        return true;
+    }
+</script>
+<body>
+
+    @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+    {
+
+        <div class="row" style="width: 400px;height: 400px; background: antiquewhite; position: fixed; margin: auto; left:0px;
+right:0px;top:0px;bottom:0px;padding:15px;">
+            <center>
+                <h2>Login</h2>
+                <label for="basic-url" style="float:left">User Name</label>
+                <div class="input-group mb-3">
+
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "txtUserName", style = "width:100%; max-width:100%" })
+
+                </div>
+                <label for="basic-url" style="float:left">Password</label>
+                <div class="input-group mb-3">
+
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", id = "txtPassword", style = "width:100%; max-width:100%" })
+
+                </div>
+                <br />
+                <input type="submit" class="btn btn-primary" value="Login" style="width:100%;max-width:100%" onclick="return ValidateInput()" />
+                <span id="spnLoginMessage"></span>
+            </center>
+
+
+        </div>
+
+
+    }
+
+    <script>
+          var outMessage = "@ViewBag.Message";
+ var RedirectUrl = "@Url.Action("DashBoard","Home")"
+
+ if (outMessage != "") {
+     if (outMessage == "Login Success") {
+         setTimeout(function () {
+             window.location.href = RedirectUrl;
+         }, 2000)
+     }
+     document.getElementById('spnLoginMessage').innerHTML = outMessage
+ }
+    </script>
+</body>
+</html>
